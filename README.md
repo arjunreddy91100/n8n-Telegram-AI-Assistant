@@ -23,10 +23,12 @@ Alternatives: Open-source models like Llama2, faster but lower-accuracy speech m
 Use: Enables fallback/diverse model responses or supplementing GPT-4 when broader coverage is needed.
 
 3. Summarization Chain for Each Node
+
 **Why: Keeps AI outputs precise, on-topic, removes verbosity, and allows further downstream nodes to work with cleaner data**
 Challenge Addressed: LLMs sometimes return overly long/unstructured content; summarization keeps responses focused and speeds up downstream processing.
 
 Design Choices Explained
+
 **Why Use If Nodes Instead of Agent-Only Model?**
 If-nodes check for intent (weather, reminder, task, knowledge query) before routing, based on keywords and grammar.
 
@@ -90,6 +92,7 @@ LLM output too verbose or “wandering”	Added summarization after every major 
 High LLM usage cost (if every request goes to GPT-4)	Used If-nodes to route most requests around the LLM, hitting APIs directly for simple queries
 Rigid, hard-to-update logic in prompt-based agent	Used explicit branches—If-nodes, summary, modular steps—for clarity, debugging and scalability
 Audio handling for unstructured speech	Used OpenAI Whisper, paired with intent checks and summarization to robustly convert voice to actionable text
+
 **Lessons Learned**
 Explicit routes beat “black box” LLM agents for clarity, debugging, and performance in modular bots.
 
